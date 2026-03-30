@@ -1,93 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+
 <title>Cyber Cave Portfolio</title>
+
 <link rel="stylesheet" href="style.css">
+
+<!-- THREE JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 </head>
 
 <body>
 
-<div class="overlay">
+<div id="overlay">
 
-<div id="section1" class="section active">
-<h1>Welcome to My Cyber Cave</h1>
-<p>Click to enter the cave</p>
-<button onclick="nextSection()">Enter</button>
-</div>
+<h1 id="title">Enter My Cyber Cave</h1>
 
-<div id="section2" class="section">
-<h2>About Me</h2>
+<div class="buttons">
 
-<p>
-Penetration Tester with 7 months of hands-on experience in web application security testing, having
-assessed 10+ applications and delivered detailed vulnerability reports aligned with OWASP Top 10
-standards.
-</p>
+<button onclick="moveForward()">Go Deeper</button>
 
-<p>
-Actively engaged in bug hunting to gain real-world attack exposure and continuously sharpen
-exploitation skills.
-</p>
-
-<button onclick="nextSection()">Go Deeper</button>
-</div>
-
-<div id="section3" class="section">
-
-<h2>Skills</h2>
-
-<ul>
-<li>OWASP Top 10 (Web & API)</li>
-<li>Burp Suite</li>
-<li>OWASP ZAP</li>
-<li>Postman</li>
-<li>Nmap</li>
-<li>Metasploit</li>
-<li>Nikto</li>
-<li>Hydra</li>
-<li>SQLMap</li>
-<li>Wfuzz</li>
-<li>Wireshark</li>
-<li>JWT Tool</li>
-<li>PyInstxtractor</li>
-</ul>
-
-<button onclick="nextSection()">Explore More</button>
-
-</div>
-
-
-<div id="section4" class="section">
-
-<h2>Certifications</h2>
-
-<p>
-Certified Penetration Tester  
-RedTeam Hacker Academy
-</p>
-
-<p>
-ISO/IEC 27001:2022 Lead Auditor  
-Mastermind Assurance
-</p>
-
-<button onclick="nextSection()">Final Chamber</button>
-
-</div>
-
-
-<div id="section5" class="section">
-
-<h2>The Treasure Chamber</h2>
-
-<p>Thanks for exploring my cybersecurity cave.</p>
-
-<p>Let’s connect.</p>
+<button onclick="moveBack()">Go Back</button>
 
 </div>
 
 </div>
+
+<canvas id="bg"></canvas>
 
 <script src="script.js"></script>
 
