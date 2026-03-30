@@ -13,15 +13,13 @@ canvas:document.querySelector("#bg")
 
 renderer.setSize(window.innerWidth,window.innerHeight);
 
-camera.position.z = 5;
-
+camera.position.set(0,0,5);
 
 // LIGHT
 
 const light = new THREE.PointLight(0xffffff,1);
 light.position.set(5,5,5);
 scene.add(light);
-
 
 // CAVE TUNNEL
 
@@ -42,76 +40,140 @@ tunnel.rotation.x = Math.PI/2;
 
 scene.add(tunnel);
 
-
-// ANIMATION LOOP
+// ANIMATION
 
 function animate(){
-
 requestAnimationFrame(animate);
-
 renderer.render(scene,camera);
-
 }
 
 animate();
 
+// ROOMS DATA
 
-// CAMERA MOVEMENT
+const rooms = [
 
-let depth = 5;
+{
+title:"Cave Entrance",
+content:"Welcome. Click Enter to explore my cybersecurity cave portfolio."
+},
 
-const title = document.getElementById("title");
+{
+title:"About Me Chamber",
+content:`Penetration Tester with 7 months of hands-on experience in web application security testing, having assessed 10+ applications and delivered vulnerability reports aligned with OWASP Top 10 standards.
 
-function moveForward(){
+Actively engaged in bug hunting to gain real-world attack exposure and continuously sharpen exploitation skills.
 
-depth -= 10;
+Proficient in tools such as Nmap, Burp Suite, Metasploit, and Python for vulnerability discovery, automation, and analysis.`
+},
 
-if(depth < -100){
-depth = -100;
+{
+title:"Skills Tunnel",
+content:`• Strong understanding of OWASP Top 10 (Web & API) vulnerabilities.
+
+• Web testing using Burp Suite, OWASP ZAP and Postman.
+
+• Security tools: Nmap, Metasploit, Nikto, Hydra, SQLMap, Wfuzz, Wireshark, JWT Tool, PyInstxtractor.
+
+• Skilled in request manipulation and vulnerability analysis.
+
+• Active bug hunter with responsible disclosure experience.`
+},
+
+{
+title:"Certifications Chamber",
+content:`Certified Penetration Tester
+RedTeam Hacker Academy
+
+ISO/IEC 27001:2022 Lead Auditor
+Mastermind Assurance`
+},
+
+{
+title:"Final Chamber",
+content:"Thank you for exploring my cyber cave portfolio."
 }
 
-camera.position.z = depth;
+];
 
-updateTitle();
+// CAMERA POSITIONS FOR ROOMS
 
-}
+const positions = [5,-20,-45,-70,-95];
 
+let currentRoom = 0;
 
-function moveBack(){
+// UPDATE CONTENT
 
-depth += 10;
+function updateRoom(){
 
-if(depth > 5){
-depth = 5;
-}
+document.getElementById("roomTitle").innerText = rooms[currentRoom].title;
 
-camera.position.z = depth;
-
-updateTitle();
+document.getElementById("contentBox").innerText = rooms[currentRoom].content;
 
 }
 
+// CAMERA ANIMATION
 
-function updateTitle(){
+function moveCamera(target){
 
-if(depth >= 5){
-title.innerText = "Enter My Cyber Cave";
+const start = camera.position.z;
+
+const duration = 800;
+
+let startTime = null;
+
+function animateMove(time){
+
+if(!startTime) startTime = time;
+
+const progress = (time-startTime)/duration;
+
+camera.position.z = start + (target-start)*progress;
+
+if(progress < 1){
+
+requestAnimationFrame(animateMove);
+
+}else{
+
+camera.position.z = target;
+
 }
 
-else if(depth < 5 && depth > -20){
-title.innerText = "About Me Chamber";
 }
 
-else if(depth <= -20 && depth > -50){
-title.innerText = "Skills Tunnel";
+requestAnimationFrame(animateMove);
+
 }
 
-else if(depth <= -50 && depth > -80){
-title.innerText = "Certifications Chamber";
+// NEXT ROOM
+
+function nextRoom(){
+
+if(currentRoom < rooms.length-1){
+
+currentRoom++;
+
+moveCamera(positions[currentRoom]);
+
+updateRoom();
+
 }
 
-else{
-title.innerText = "Treasure Chamber";
+}
+
+// PREVIOUS ROOM
+
+function prevRoom(){
+
+if(currentRoom > 0){
+
+currentRoom--;
+
+moveCamera(positions[currentRoom]);
+
+updateRoom();
+
 }
 
 }
