@@ -1,36 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Cyber Cave Portfolio</title>
-
-<link rel="stylesheet" href="style.css">
-
-<!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Penetration Tester Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <canvas id="bg"></canvas>
 
-<div id="overlay">
+    <div id="controls">
+        <button id="prevBtn" class="nav-btn">← Move Left</button>
+        <button id="nextBtn" class="nav-btn">Move Right →</button>
+    </div>
 
-<h1 id="roomTitle">Cave Entrance</h1>
+    <div id="contactPopup" class="hidden">
+        <div class="popup-content">
+            <h3>Message Me Here</h3>
+            <textarea placeholder="Enter your message..."></textarea>
+            <button id="submitBtn">Submit</button>
+            <button id="closeBtn">Close</button>
+        </div>
+    </div>
 
-<div id="contentBox">
-Welcome. Click Enter to explore my cybersecurity cave portfolio.
-</div>
-
-<div class="buttons">
-<button onclick="nextRoom()">Enter Cave</button>
-<button onclick="prevRoom()">Go Back</button>
-</div>
-
-</div>
-
-<canvas id="bg"></canvas>
-
-<script src="script.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
