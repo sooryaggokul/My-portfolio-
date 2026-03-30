@@ -1,70 +1,38 @@
-body {
+body{
 margin:0;
-font-family:monospace;
-color:#00ffcc;
-background:black;
 overflow:hidden;
+font-family:monospace;
+background:black;
+color:#00ffcc;
 }
 
-.overlay{
-height:100vh;
+#overlay{
+position:absolute;
+top:40%;
 width:100%;
-display:flex;
-align-items:center;
-justify-content:center;
 text-align:center;
-padding:40px;
+z-index:10;
 }
 
-.section{
-display:none;
-animation:fade 1s;
+h1{
+text-shadow:0 0 15px #00ffcc;
 }
 
-.section.active{
-display:block;
-}
-
-h1,h2{
-text-shadow:0 0 10px #00ffcc;
+.buttons{
+margin-top:20px;
 }
 
 button{
-margin-top:20px;
-padding:10px 20px;
+padding:12px 25px;
+margin:10px;
 background:black;
 border:1px solid #00ffcc;
 color:#00ffcc;
 cursor:pointer;
+font-size:16px;
 }
 
 button:hover{
 background:#00ffcc;
 color:black;
-}
-
-ul{
-list-style:none;
-padding:0;
-}
-
-li{
-margin:5px;
-}
-
-@keyframes fade{
-from{opacity:0}
-to{opacity:1}
-}
-
-#section1 {
-background: url("assets/cave1.jpg") center/cover no-repeat;
-}
-
-#section2 {
-background: url("assets/cave2.jpg") center/cover no-repeat;
-}
-
-#section3 {
-background: url("assets/cave3.jpg") center/cover no-repeat;
 }
