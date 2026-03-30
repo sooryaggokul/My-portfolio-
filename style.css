@@ -1,45 +1,29 @@
-body{
-margin:0;
-overflow:hidden;
-background:black;
-font-family:monospace;
-color:#00ffcc;
+body { margin: 0; overflow: hidden; background: #000; font-family: 'Courier New', Courier, monospace; color: #00ff41; }
+canvas { display: block; }
+
+#controls {
+    position: absolute; bottom: 30px; width: 100%;
+    display: flex; justify-content: center; gap: 50px; z-index: 10;
 }
 
-#overlay{
-position:absolute;
-top:20%;
-left:50%;
-transform:translateX(-50%);
-text-align:center;
-width:70%;
-z-index:10;
+.nav-btn {
+    background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41;
+    color: #00ff41; padding: 10px 20px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
 }
 
-h1{
-font-size:40px;
-text-shadow:0 0 15px #00ffcc;
+.nav-btn:hover { background: #00ff41; color: #000; box-shadow: 0 0 15px #00ff41; }
+
+.hidden { display: none !important; }
+
+#contactPopup {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 20;
 }
 
-#contentBox{
-margin-top:20px;
-padding:20px;
-background:rgba(0,0,0,0.6);
-border:1px solid #00ffcc;
-border-radius:10px;
+.popup-content {
+    background: #111; border: 2px solid #00ff41; padding: 40px;
+    text-align: center; box-shadow: 0 0 30px #00ff41;
 }
 
-button{
-margin:15px;
-padding:12px 25px;
-background:black;
-border:1px solid #00ffcc;
-color:#00ffcc;
-cursor:pointer;
-font-size:16px;
-}
-
-button:hover{
-background:#00ffcc;
-color:black;
-}
+textarea { width: 100%; height: 100px; background: #000; color: #00ff41; border: 1px solid #00ff41; margin: 15px 0; padding: 10px; }
