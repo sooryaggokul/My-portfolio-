@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
 <title>Cyber Cave Portfolio</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- THREE JS -->
+<!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 </head>
@@ -15,14 +15,15 @@
 
 <div id="overlay">
 
-<h1 id="title">Enter My Cyber Cave</h1>
+<h1 id="roomTitle">Cave Entrance</h1>
+
+<div id="contentBox">
+Welcome. Click Enter to explore my cybersecurity cave portfolio.
+</div>
 
 <div class="buttons">
-
-<button onclick="moveForward()">Go Deeper</button>
-
-<button onclick="moveBack()">Go Back</button>
-
+<button onclick="nextRoom()">Enter Cave</button>
+<button onclick="prevRoom()">Go Back</button>
 </div>
 
 </div>
