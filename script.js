@@ -1,14 +1,17 @@
 const btn = document.getElementById("enterBtn");
-const doorContainer = document.querySelector(".door-container");
-const content = document.getElementById("content");
+const door = document.getElementById("doorFrame");
+const about = document.getElementById("about");
 
 btn.addEventListener("click", () => {
 
-    doorContainer.classList.add("open");
-    btn.style.display = "none";
+door.classList.add("open");
 
-    setTimeout(()=>{
-        content.classList.add("show");
-    },1500)
+btn.style.display = "none";
+
+setTimeout(() => {
+
+about.classList.add("show");
+
+},2000);
 
 });
