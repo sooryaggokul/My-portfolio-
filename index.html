@@ -6,86 +6,85 @@
 <title>Soorya G | Security Researcher</title>
 <style>
 body{
-  margin:0;
-  background:#050505;
-  font-family:monospace;
-  color:white;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  perspective:1200px; /* camera perspective */
+    margin:0;
+    background:#050505;
+    font-family:monospace;
+    color:white;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    perspective:1500px; /* camera perspective */
 }
-
 h1{color:#00ffc8;margin-bottom:5px;text-align:center;}
 h3{color:#aaa;margin-bottom:30px;text-align:center;}
 
 .scene{
-  width:340px;
-  height:420px;
-  position:relative;
-  transform-style: preserve-3d;
-  transition: transform 2s ease-in-out; /* move camera */
+    width:340px;
+    height:420px;
+    position:relative;
+    transform-style: preserve-3d;
+    transition: transform 2s ease-in-out; /* camera movement */
 }
 
 /* ROOM LAYERS */
 .room{
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0; left:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:25px;
-  box-sizing:border-box;
-  background:#020202;
-  border:3px solid #00ffc8;
-  box-shadow:0 0 30px #00ffc8;
-  transform-style: preserve-3d;
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0; left:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    box-sizing:border-box;
+    background:#020202;
+    border:3px solid #00ffc8;
+    box-shadow:0 0 30px #00ffc8;
+    transform-style: preserve-3d;
+}
+
+/* ROOM TEXT */
+.room-text{
+    color:#ccc;
+    opacity:0;
+    transition:opacity 1.5s;
+    line-height:1.6;
 }
 
 /* DOOR */
 .door-layer{
-  position:absolute;
-  width:100%;
-  height:100%;
-  display:flex;
-  z-index:3;
-  perspective:1000px;
-  pointer-events:none;
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    z-index:3;
+    perspective:1000px;
+    pointer-events:none;
 }
 .door{
-  width:50%;
-  height:100%;
-  background:#111;
-  transition:transform 2s;
+    width:50%;
+    height:100%;
+    background:#111;
+    transition:transform 2s;
 }
 .left{transform-origin:left;border-right:1px solid #00ffc8;}
 .right{transform-origin:right;border-left:1px solid #00ffc8;}
 .open .left{transform:rotateY(-120deg);}
 .open .right{transform:rotateY(120deg);}
 
-/* TEXT */
-.room-text{
-  color:#ccc;
-  opacity:0;
-  transition:opacity 1.5s;
-  line-height:1.6;
-}
-
 /* BUTTONS */
 button{
-  position:absolute;
-  padding:10px 20px;
-  background:#00ffc8;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  letter-spacing:1px;
-  transition:0.3s;
+    position:absolute;
+    padding:10px 20px;
+    background:#00ffc8;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    letter-spacing:1px;
+    transition:0.3s;
 }
 button:hover{background:#00ffa0;}
 #enterBtn{top:50%;left:50%;transform:translate(-50%,-50%);}
@@ -109,17 +108,15 @@ button:hover{background:#00ffa0;}
       With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
       </p>
     </div>
-
     <div class="door-layer" id="doors">
       <div class="door left"></div>
       <div class="door right"></div>
     </div>
-
     <button id="enterBtn">ENTER</button>
   </div>
 
-  <!-- ROOM 2 -->
-  <div class="room" id="room2" style="transform: translateZ(1000px);">
+  <!-- ROOM 2 (ROTATED 90°) -->
+  <div class="room" id="room2" style="transform: rotateY(90deg) translateX(340px); transform-origin: left center;">
     <div class="room-text" id="roomText2">
       <ul>
         <li>Strong understanding of OWASP Top 10 (Web & API) vulnerabilities with hands-on security testing experience.</li>
@@ -158,19 +155,19 @@ btnEnter.onclick = function(){
   },1200);
 }
 
-// NEXT ROOM: move camera forward
+// NEXT ROOM: rotate camera 90° to side
 btnNext.onclick = function(){
-  scene.style.transform = "translateZ(-1000px)";
+  scene.style.transform = "rotateY(-90deg) translateX(-340px)";
   btnNext.style.display="none";
   btnBack.style.display="block";
   setTimeout(()=>{
     roomText2.style.opacity="1";
-  }, 1000);
+  },1000);
 }
 
-// BACK ROOM: move camera back
+// BACK ROOM: rotate back
 btnBack.onclick = function(){
-  scene.style.transform = "translateZ(0px)";
+  scene.style.transform = "rotateY(0deg) translateX(0px)";
   btnBack.style.display="none";
   btnNext.style.display="block";
   roomText2.style.opacity="0";
