@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,40 +19,39 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+flex-direction:column;
 }
 
 /* TITLE */
 
-.title{
-text-align:center;
+h1{
 color:#00ffc8;
-font-size:40px;
 margin-bottom:5px;
 }
 
-.subtitle{
-text-align:center;
+h3{
 color:#aaa;
 margin-bottom:30px;
 }
 
-/* DOOR AREA */
+/* SCENE */
 
 .scene{
-width:320px;
+width:340px;
 height:420px;
 position:relative;
-margin:auto;
 }
 
-/* CONTENT BEHIND DOOR */
+/* BACK LAYER (ROOM INSIDE) */
 
-.content{
+.room-inside{
 
 position:absolute;
 
 width:100%;
 height:100%;
+
+background:#020202;
 
 display:flex;
 align-items:center;
@@ -58,43 +59,42 @@ justify-content:center;
 
 text-align:center;
 
-padding:30px;
+padding:25px;
 
-background:#020202;
+box-sizing:border-box;
+
+z-index:1;
 
 opacity:0;
 
 transition:opacity 1.5s;
 
-z-index:1;
-
 }
 
-.content.show{
+/* SHOW TEXT */
+
+.room-inside.show{
 opacity:1;
 }
 
-/* DOOR FRAME */
+/* FRONT LAYER (DOOR) */
 
-.door-frame{
+.door-layer{
+
+position:absolute;
 
 width:100%;
 height:100%;
 
 display:flex;
 
-position:absolute;
-
-top:0;
-left:0;
+z-index:2;
 
 perspective:1000px;
 
 border:3px solid #00ffc8;
 
-box-shadow:0 0 30px #00ffc8;
-
-z-index:2;
+box-shadow:0 0 25px #00ffc8;
 
 }
 
@@ -111,29 +111,29 @@ transition:transform 2s;
 
 }
 
-.left-door{
+.left{
 transform-origin:left;
 border-right:1px solid #00ffc8;
 }
 
-.right-door{
+.right{
 transform-origin:right;
 border-left:1px solid #00ffc8;
 }
 
-/* OPEN ANIMATION */
+/* OPEN DOOR */
 
-.open .left-door{
+.open .left{
 transform:rotateY(-120deg);
 }
 
-.open .right-door{
+.open .right{
 transform:rotateY(120deg);
 }
 
 /* BUTTON */
 
-#enterBtn{
+button{
 
 position:absolute;
 
@@ -152,8 +152,6 @@ cursor:pointer;
 
 font-weight:bold;
 
-letter-spacing:2px;
-
 z-index:5;
 
 }
@@ -164,27 +162,30 @@ z-index:5;
 
 <body>
 
-<div>
-
-<h1 class="title">Soorya G</h1>
-<h3 class="subtitle">Security Researcher</h3>
+<h1>Soorya G</h1>
+<h3>Security Researcher</h3>
 
 <div class="scene">
 
-<div class="content" id="content">
+<!-- BACK LAYER -->
+
+<div class="room-inside" id="roomText">
 
 <p>
 Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
 I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
-With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
+With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer
+while evolving every day as a security professional.
 </p>
 
 </div>
 
-<div class="door-frame" id="doorFrame">
+<!-- FRONT LAYER (DOOR) -->
 
-<div class="door left-door"></div>
-<div class="door right-door"></div>
+<div class="door-layer" id="doors">
+
+<div class="door left"></div>
+<div class="door right"></div>
 
 </div>
 
@@ -192,27 +193,25 @@ With a blend of technical skills and a constant eagerness to grow, I strive to m
 
 </div>
 
-</div>
-
 <script>
 
 const btn = document.getElementById("enterBtn");
-const door = document.getElementById("doorFrame");
-const content = document.getElementById("content");
+const doors = document.getElementById("doors");
+const text = document.getElementById("roomText");
 
 btn.onclick = function(){
 
-door.classList.add("open");
+doors.classList.add("open");
 
 btn.style.display="none";
 
-setTimeout(function(){
+setTimeout(()=>{
 
-content.classList.add("show");
+text.classList.add("show");
 
-},1500);
+},1200);
 
-};
+}
 
 </script>
 
