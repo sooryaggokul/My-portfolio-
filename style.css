@@ -1,77 +1,90 @@
 body{
-margin:0;
-overflow:hidden;
-background:black;
-font-family:monospace;
-color:#00ffcc;
+    margin:0;
+    padding:0;
+    background:#0a0a0a;
+    font-family:monospace;
+    color:white;
+    overflow:hidden;
 }
 
-#overlay{
-
-position:absolute;
-top:20%;
-left:50%;
-transform:translateX(-50%);
-width:600px;
-
-text-align:center;
-
+.room{
+    height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-#contentBox{
-
-background:rgba(0,0,0,0.7);
-padding:20px;
-border:1px solid #00ffcc;
-
+.title{
+    position:absolute;
+    top:40px;
+    text-align:center;
 }
 
-#controls{
-
-position:absolute;
-bottom:30px;
-width:100%;
-text-align:center;
-
+.title h1{
+    font-size:40px;
+    color:#00ffcc;
 }
 
-button{
-
-padding:12px 20px;
-font-size:18px;
-margin:10px;
-
-background:black;
-color:#00ffcc;
-border:1px solid #00ffcc;
-cursor:pointer;
-
+.title h3{
+    color:#aaa;
 }
 
-#popup{
-
-display:none;
-
-position:absolute;
-top:30%;
-left:50%;
-transform:translateX(-50%);
-
-background:black;
-border:1px solid #00ffcc;
-
-padding:30px;
-width:400px;
-
+.door-container{
+    position:relative;
+    width:300px;
+    height:400px;
+    display:flex;
 }
 
-input,textarea{
+.door{
+    width:50%;
+    height:100%;
+    background:#111;
+    border:2px solid #00ffcc;
+    transition:1.5s;
+}
 
-width:100%;
-margin:10px 0;
-padding:10px;
-background:#111;
-color:white;
-border:1px solid #00ffcc;
+.left-door{
+    transform-origin:left;
+}
 
+.right-door{
+    transform-origin:right;
+}
+
+.open .left-door{
+    transform:rotateY(-120deg);
+}
+
+.open .right-door{
+    transform:rotateY(120deg);
+}
+
+#enterBtn{
+    position:absolute;
+    top:45%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:10px 20px;
+    background:#00ffcc;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.content{
+    position:absolute;
+    bottom:120px;
+    width:60%;
+    text-align:center;
+    opacity:0;
+    transition:2s;
+    font-size:18px;
+    line-height:1.6;
+}
+
+.content.show{
+    opacity:1;
 }
