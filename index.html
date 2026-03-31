@@ -7,73 +7,72 @@
 <style>
 body{
     margin:0;
-    background:#050505;
-    font-family:monospace;
-    color:white;
+    background:#000;
+    perspective:1800px;
     height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    overflow:hidden;
-    perspective:1500px; /* camera perspective */
+    font-family:monospace;
+    color:white;
 }
-h1{color:#00ffc8;margin-bottom:5px;text-align:center;}
-h3{color:#aaa;margin-bottom:30px;text-align:center;}
+
+h1{color:#00ffc8;text-align:center;margin:5px;}
+h3{color:#aaa;text-align:center;margin:5px;}
 
 .scene{
-    width:340px;
-    height:420px;
+    width:400px;
+    height:400px;
     position:relative;
     transform-style: preserve-3d;
-    transition: transform 2s ease-in-out; /* camera movement */
+    transition: transform 2s ease-in-out;
 }
 
-/* ROOM LAYERS */
+/* ROOM CUBE */
 .room{
     position:absolute;
     width:100%;
     height:100%;
-    top:0; left:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:25px;
-    box-sizing:border-box;
-    background:#020202;
-    border:3px solid #00ffc8;
-    box-shadow:0 0 30px #00ffc8;
     transform-style: preserve-3d;
+}
+
+/* WALLS */
+.wall{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#111;
+    border:2px solid #00ffc8;
+    box-shadow:0 0 20px #00ffc8 inset;
+}
+.front{transform:translateZ(200px);}
+.back{transform:rotateY(180deg) translateZ(200px);}
+.left{transform:rotateY(-90deg) translateZ(200px);}
+.right{transform:rotateY(90deg) translateZ(200px);}
+.floor{transform:rotateX(90deg) translateZ(200px);background:#222;}
+.ceiling{transform:rotateX(-90deg) translateZ(200px);background:#111;}
+
+/* DOOR */
+.door{
+    position:absolute;
+    width:100px;
+    height:200px;
+    background:#000;
+    top:100px;
+    left:150px;
+    border:2px solid #00ffc8;
+    z-index:5;
 }
 
 /* ROOM TEXT */
 .room-text{
-    color:#ccc;
-    opacity:0;
-    transition:opacity 1.5s;
-    line-height:1.6;
-}
-
-/* DOOR */
-.door-layer{
     position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    z-index:3;
-    perspective:1000px;
-    pointer-events:none;
+    color:#ccc;
+    text-align:center;
+    opacity:0;
+    width:90%;
 }
-.door{
-    width:50%;
-    height:100%;
-    background:#111;
-    transition:transform 2s;
-}
-.left{transform-origin:left;border-right:1px solid #00ffc8;}
-.right{transform-origin:right;border-left:1px solid #00ffc8;}
-.open .left{transform:rotateY(-120deg);}
-.open .right{transform:rotateY(120deg);}
 
 /* BUTTONS */
 button{
@@ -83,8 +82,6 @@ button{
     border:none;
     cursor:pointer;
     font-weight:bold;
-    letter-spacing:1px;
-    transition:0.3s;
 }
 button:hover{background:#00ffa0;}
 #enterBtn{top:50%;left:50%;transform:translate(-50%,-50%);}
@@ -101,22 +98,30 @@ button:hover{background:#00ffa0;}
 
   <!-- ROOM 1 -->
   <div class="room" id="room1">
-    <div class="room-text" id="roomText1">
+    <div class="wall front"><div class="door"></div></div>
+    <div class="wall back"></div>
+    <div class="wall left"></div>
+    <div class="wall right"></div>
+    <div class="wall floor"></div>
+    <div class="wall ceiling"></div>
+    <div class="room-text" id="roomText1" style="top:150px;">
       <p>
       Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
       I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
       With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
       </p>
     </div>
-    <div class="door-layer" id="doors">
-      <div class="door left"></div>
-      <div class="door right"></div>
-    </div>
     <button id="enterBtn">ENTER</button>
   </div>
 
-  <!-- ROOM 2 (ROTATED 90°) -->
-  <div class="room" id="room2" style="transform: rotateY(90deg) translateX(340px); transform-origin: left center;">
+  <!-- ROOM 2 -->
+  <div class="room" id="room2" style="transform: rotateY(90deg) translateX(400px); transform-origin:left center;">
+    <div class="wall front"></div>
+    <div class="wall back"></div>
+    <div class="wall left"></div>
+    <div class="wall right"></div>
+    <div class="wall floor"></div>
+    <div class="wall ceiling"></div>
     <div class="room-text" id="roomText2">
       <ul>
         <li>Strong understanding of OWASP Top 10 (Web & API) vulnerabilities with hands-on security testing experience.</li>
@@ -134,43 +139,43 @@ button:hover{background:#00ffa0;}
 <button id="nextBtn">➡ Next Room</button>
 
 <script>
-const btnEnter = document.getElementById("enterBtn");
-const doors = document.getElementById("doors");
+const enterBtn = document.getElementById("enterBtn");
 const roomText1 = document.getElementById("roomText1");
 const scene = document.getElementById("scene");
-const btnNext = document.getElementById("nextBtn");
-const btnBack = document.getElementById("backBtn");
+const nextBtn = document.getElementById("nextBtn");
+const backBtn = document.getElementById("backBtn");
 const roomText2 = document.getElementById("roomText2");
 
-btnNext.style.display="none";
-btnBack.style.display="none";
+nextBtn.style.display="none";
+backBtn.style.display="none";
 
-// ENTER: open doors & show text
-btnEnter.onclick = function(){
-  doors.classList.add("open");
-  btnEnter.style.display="none";
-  setTimeout(()=>{
-    roomText1.style.opacity="1";
-    btnNext.style.display="block";
-  },1200);
+enterBtn.onclick = ()=>{
+    enterBtn.style.display="none";
+    roomText1.style.opacity=1;
+    nextBtn.style.display="block";
 }
 
-// NEXT ROOM: rotate camera 90° to side
-btnNext.onclick = function(){
-  scene.style.transform = "rotateY(-90deg) translateX(-340px)";
-  btnNext.style.display="none";
-  btnBack.style.display="block";
-  setTimeout(()=>{
-    roomText2.style.opacity="1";
-  },1000);
+// Next: walking-turn animation
+nextBtn.onclick = ()=>{
+    // half rotation forward
+    scene.style.transform = "translateZ(-200px) rotateY(-45deg)";
+    nextBtn.style.display="none";
+    backBtn.style.display="block";
+    setTimeout(()=>{
+        // full rotation into room 2
+        scene.style.transform = "translateZ(-400px) rotateY(-90deg)";
+    },1000);
+    setTimeout(()=>{
+        roomText2.style.opacity=1;
+    },1800);
 }
 
-// BACK ROOM: rotate back
-btnBack.onclick = function(){
-  scene.style.transform = "rotateY(0deg) translateX(0px)";
-  btnBack.style.display="none";
-  btnNext.style.display="block";
-  roomText2.style.opacity="0";
+// Back
+backBtn.onclick = ()=>{
+    roomText2.style.opacity=0;
+    scene.style.transform="translateZ(0px) rotateY(0deg)";
+    backBtn.style.display="none";
+    nextBtn.style.display="block";
 }
 </script>
 
