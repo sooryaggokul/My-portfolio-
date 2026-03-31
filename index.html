@@ -2,47 +2,238 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Soorya G | Security Researcher</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+/* PAGE STYLE */
+
+body{
+margin:0;
+background:#050505;
+font-family:monospace;
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* MAIN ROOM */
+
+.room{
+text-align:center;
+}
+
+/* TITLE */
+
+.title{
+font-size:45px;
+color:#00ffc8;
+margin-bottom:5px;
+}
+
+.subtitle{
+color:#aaa;
+margin-bottom:40px;
+}
+
+/* DOOR SCENE */
+
+.door-scene{
+position:relative;
+}
+
+/* DOOR FRAME */
+
+.door-frame{
+
+width:320px;
+height:420px;
+
+display:flex;
+
+margin:auto;
+
+perspective:1200px;
+
+border:3px solid #00ffc8;
+
+box-shadow:0 0 30px #00ffc8;
+
+}
+
+/* DOORS */
+
+.door{
+
+width:50%;
+height:100%;
+
+background:#111;
+
+transition:transform 2s;
+
+}
+
+.left-door{
+
+transform-origin:left;
+
+border-right:1px solid #00ffc8;
+
+}
+
+.right-door{
+
+transform-origin:right;
+
+border-left:1px solid #00ffc8;
+
+}
+
+/* OPEN ANIMATION */
+
+.open .left-door{
+
+animation:leftDoorOpen 2s forwards;
+
+}
+
+.open .right-door{
+
+animation:rightDoorOpen 2s forwards;
+
+}
+
+@keyframes leftDoorOpen{
+
+0%{transform:rotateY(0deg);}
+100%{transform:rotateY(-110deg);}
+
+}
+
+@keyframes rightDoorOpen{
+
+0%{transform:rotateY(0deg);}
+100%{transform:rotateY(110deg);}
+
+}
+
+/* ENTER BUTTON */
+
+#enterBtn{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+padding:12px 30px;
+
+background:#00ffc8;
+
+border:none;
+
+cursor:pointer;
+
+font-weight:bold;
+
+letter-spacing:2px;
+
+}
+
+/* CONTENT */
+
+.content{
+
+margin-top:50px;
+
+width:650px;
+
+opacity:0;
+
+transition:opacity 2s;
+
+line-height:1.7;
+
+color:#ccc;
+
+}
+
+.content.show{
+
+opacity:1;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-<div class="scene">
+<div class="room">
 
-<h1 class="name">Soorya G</h1>
-<h3 class="role">Security Researcher</h3>
+<h1 class="title">Soorya G</h1>
+<h3 class="subtitle">Security Researcher</h3>
+
+<div class="door-scene">
 
 <div class="door-frame" id="doorFrame">
 
 <div class="door left-door"></div>
 <div class="door right-door"></div>
 
+</div>
+
 <button id="enterBtn">ENTER</button>
 
 </div>
 
-<div class="about" id="about">
+<div class="content" id="content">
 
 <p>
-Certified Penetration Tester with a deep interest in ethical hacking,
-penetration testing, and bug hunting. I enjoy exploring how systems work,
-finding vulnerabilities, and turning challenges into learning opportunities.
-With a blend of technical skills and a constant eagerness to grow, I strive
-to make the digital world safer while evolving every day as a security
-professional.
+Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
+I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
+With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer
+while evolving every day as a security professional.
 </p>
 
 </div>
 
 </div>
 
-<script src="script.js"></script>
+<script>
+
+/* DOOR OPEN SCRIPT */
+
+const btn = document.getElementById("enterBtn");
+const door = document.getElementById("doorFrame");
+const content = document.getElementById("content");
+
+btn.onclick = function(){
+
+door.classList.add("open");
+
+btn.style.display="none";
+
+setTimeout(function(){
+
+content.classList.add("show");
+
+},2000);
+
+};
+
+</script>
 
 </body>
+
 </html>
