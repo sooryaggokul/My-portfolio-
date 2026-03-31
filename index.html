@@ -5,88 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soorya G | Security Researcher</title>
 <style>
-body{
-    margin:0;
-    background:#000;
-    perspective:1800px;
-    height:100vh;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:monospace;
-    color:white;
+body {
+  margin: 0;
+  perspective: 1800px;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  font-family: monospace;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h1{color:#00ffc8;text-align:center;margin:5px;}
-h3{color:#aaa;text-align:center;margin:5px;}
+h1 { color: #00ffc8; text-align:center; margin: 0; }
+h3 { color: #aaa; text-align:center; margin: 5px 0 20px; }
 
-.scene{
-    width:400px;
-    height:400px;
-    position:relative;
-    transform-style: preserve-3d;
-    transition: transform 2s ease-in-out;
+.scene {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
 }
 
-/* ROOM CUBE */
-.room{
-    position:absolute;
-    width:100%;
-    height:100%;
-    transform-style: preserve-3d;
+.room {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
 }
 
-/* WALLS */
-.wall{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#111;
-    border:2px solid #00ffc8;
-    box-shadow:0 0 20px #00ffc8 inset;
+/* Walls */
+.wall {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  border: 2px solid #00ffc8;
+  box-shadow: 0 0 30px #00ffc8 inset;
 }
-.front{transform:translateZ(200px);}
-.back{transform:rotateY(180deg) translateZ(200px);}
-.left{transform:rotateY(-90deg) translateZ(200px);}
-.right{transform:rotateY(90deg) translateZ(200px);}
-.floor{transform:rotateX(90deg) translateZ(200px);background:#222;}
-.ceiling{transform:rotateX(-90deg) translateZ(200px);background:#111;}
+.front { transform: translateZ(200px); }
+.back { transform: rotateY(180deg) translateZ(200px); }
+.left { transform: rotateY(-90deg) translateZ(200px); }
+.right { transform: rotateY(90deg) translateZ(200px); }
+.floor { transform: rotateX(90deg) translateZ(200px); background: #222; }
+.ceiling { transform: rotateX(-90deg) translateZ(200px); background: #111; }
 
-/* DOOR */
-.door{
-    position:absolute;
-    width:100px;
-    height:200px;
-    background:#000;
-    top:100px;
-    left:150px;
-    border:2px solid #00ffc8;
-    z-index:5;
-}
-
-/* ROOM TEXT */
-.room-text{
-    position:absolute;
-    color:#ccc;
-    text-align:center;
-    opacity:0;
-    width:90%;
+/* Door */
+.door {
+  position: absolute;
+  width: 100px;
+  height: 200px;
+  top: 100px;
+  left: 150px;
+  background: #000;
+  border: 2px solid #00ffc8;
+  z-index: 5;
 }
 
-/* BUTTONS */
-button{
-    position:absolute;
-    padding:10px 20px;
-    background:#00ffc8;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
+/* Text */
+.room-text {
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s;
 }
-button:hover{background:#00ffa0;}
-#enterBtn{top:50%;left:50%;transform:translate(-50%,-50%);}
-#nextBtn{bottom:20px;right:20px;}
-#backBtn{bottom:20px;left:20px;}
+
+/* Buttons */
+button {
+  position: absolute;
+  padding: 10px 20px;
+  background: #00ffc8;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover { background: #00ffa0; }
+#enterBtn { top: 50%; left: 50%; transform: translate(-50%,-50%); }
+#nextBtn { bottom: 20px; right: 20px; }
+#backBtn { bottom: 20px; left: 20px; }
+
+/* Animations */
+@keyframes walkTurn {
+  0% { transform: translateZ(0px) rotateY(0deg); }
+  50% { transform: translateZ(-200px) rotateY(-45deg); }
+  100% { transform: translateZ(-400px) rotateY(-90deg); }
+}
 </style>
 </head>
 <body>
@@ -95,7 +103,6 @@ button:hover{background:#00ffa0;}
 <h3>Security Researcher</h3>
 
 <div class="scene" id="scene">
-
   <!-- ROOM 1 -->
   <div class="room" id="room1">
     <div class="wall front"><div class="door"></div></div>
@@ -104,7 +111,7 @@ button:hover{background:#00ffa0;}
     <div class="wall right"></div>
     <div class="wall floor"></div>
     <div class="wall ceiling"></div>
-    <div class="room-text" id="roomText1" style="top:150px;">
+    <div class="room-text" id="roomText1">
       <p>
       Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
       I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
@@ -133,7 +140,6 @@ button:hover{background:#00ffa0;}
     </div>
     <button id="backBtn">⬅ Back</button>
   </div>
-
 </div>
 
 <button id="nextBtn">➡ Next Room</button>
@@ -151,31 +157,25 @@ backBtn.style.display="none";
 
 enterBtn.onclick = ()=>{
     enterBtn.style.display="none";
-    roomText1.style.opacity=1;
-    nextBtn.style.display="block";
+    roomText1.style.opacity = 1;
+    nextBtn.style.display = "block";
 }
 
-// Next: walking-turn animation
+// Next: walk-turn animation
 nextBtn.onclick = ()=>{
-    // half rotation forward
-    scene.style.transform = "translateZ(-200px) rotateY(-45deg)";
-    nextBtn.style.display="none";
-    backBtn.style.display="block";
-    setTimeout(()=>{
-        // full rotation into room 2
-        scene.style.transform = "translateZ(-400px) rotateY(-90deg)";
-    },1000);
-    setTimeout(()=>{
-        roomText2.style.opacity=1;
-    },1800);
+    scene.style.animation = "walkTurn 2s forwards";
+    nextBtn.style.display = "none";
+    backBtn.style.display = "block";
+    setTimeout(()=>{ roomText2.style.opacity = 1; }, 2000);
 }
 
 // Back
 backBtn.onclick = ()=>{
-    roomText2.style.opacity=0;
-    scene.style.transform="translateZ(0px) rotateY(0deg)";
-    backBtn.style.display="none";
-    nextBtn.style.display="block";
+    roomText2.style.opacity = 0;
+    scene.style.animation = "";
+    scene.style.transform = "translateZ(0px) rotateY(0deg)";
+    backBtn.style.display = "none";
+    nextBtn.style.display = "block";
 }
 </script>
 
