@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,31 +19,27 @@ justify-content:center;
 align-items:center;
 }
 
-/* MAIN ROOM */
-
-.room{
-text-align:center;
-}
-
 /* TITLE */
 
 .title{
-font-size:45px;
+text-align:center;
 color:#00ffc8;
+font-size:40px;
 margin-bottom:5px;
 }
 
 .subtitle{
+text-align:center;
 color:#aaa;
-margin-bottom:40px;
+margin-bottom:30px;
 }
 
 /* DOOR AREA */
 
-.door-scene{
-position:relative;
+.scene{
 width:320px;
 height:420px;
+position:relative;
 margin:auto;
 }
 
@@ -54,9 +48,6 @@ margin:auto;
 .content{
 
 position:absolute;
-
-top:0;
-left:0;
 
 width:100%;
 height:100%;
@@ -69,11 +60,13 @@ text-align:center;
 
 padding:30px;
 
+background:#020202;
+
 opacity:0;
 
-transition:opacity 2s;
+transition:opacity 1.5s;
 
-background:#020202;
+z-index:1;
 
 }
 
@@ -95,15 +88,17 @@ position:absolute;
 top:0;
 left:0;
 
-perspective:1200px;
+perspective:1000px;
 
 border:3px solid #00ffc8;
 
 box-shadow:0 0 30px #00ffc8;
 
+z-index:2;
+
 }
 
-/* DOORS */
+/* DOOR PANELS */
 
 .door{
 
@@ -117,32 +112,26 @@ transition:transform 2s;
 }
 
 .left-door{
-
 transform-origin:left;
-
 border-right:1px solid #00ffc8;
-
 }
 
 .right-door{
-
 transform-origin:right;
-
 border-left:1px solid #00ffc8;
-
 }
 
-/* DOOR OPEN ANIMATION */
+/* OPEN ANIMATION */
 
 .open .left-door{
-transform:rotateY(-110deg);
+transform:rotateY(-120deg);
 }
 
 .open .right-door{
-transform:rotateY(110deg);
+transform:rotateY(120deg);
 }
 
-/* ENTER BUTTON */
+/* BUTTON */
 
 #enterBtn{
 
@@ -175,27 +164,22 @@ z-index:5;
 
 <body>
 
-<div class="room">
+<div>
 
 <h1 class="title">Soorya G</h1>
 <h3 class="subtitle">Security Researcher</h3>
 
-<div class="door-scene">
-
-<!-- TEXT INSIDE DOOR -->
+<div class="scene">
 
 <div class="content" id="content">
 
 <p>
 Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
 I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
-With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer
-while evolving every day as a security professional.
+With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
 </p>
 
 </div>
-
-<!-- DOOR -->
 
 <div class="door-frame" id="doorFrame">
 
@@ -226,7 +210,7 @@ setTimeout(function(){
 
 content.classList.add("show");
 
-},1200);
+},1500);
 
 };
 
