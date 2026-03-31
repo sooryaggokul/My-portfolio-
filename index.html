@@ -6,124 +6,91 @@
 <title>Soorya G | Security Researcher</title>
 <style>
 body{
-    margin:0;
-    background:#050505;
-    font-family:monospace;
-    color:white;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
+  margin:0;
+  background:#050505;
+  font-family:monospace;
+  color:white;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  perspective:1200px; /* camera perspective */
 }
 
-/* TITLE */
-h1{
-    color:#00ffc8;
-    margin-bottom:5px;
-}
-h3{
-    color:#aaa;
-    margin-bottom:30px;
-}
+h1{color:#00ffc8;margin-bottom:5px;text-align:center;}
+h3{color:#aaa;margin-bottom:30px;text-align:center;}
 
-/* SCENE */
 .scene{
-    width:340px;
-    height:420px;
-    position:relative;
+  width:340px;
+  height:420px;
+  position:relative;
+  transform-style: preserve-3d;
+  transition: transform 2s ease-in-out; /* move camera */
 }
 
-/* ROOMS */
+/* ROOM LAYERS */
 .room{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0; left:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:25px;
-    box-sizing:border-box;
-    background:#020202;
-    opacity:0;
-    transition:opacity 1s;
-    z-index:1;
-}
-.room.active{
-    opacity:1;
-    z-index:2;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0; left:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+  box-sizing:border-box;
+  background:#020202;
+  border:3px solid #00ffc8;
+  box-shadow:0 0 30px #00ffc8;
+  transform-style: preserve-3d;
 }
 
-/* DOORS (only for first room) */
+/* DOOR */
 .door-layer{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    perspective:1000px;
-    border:3px solid #00ffc8;
-    box-shadow:0 0 25px #00ffc8;
-    z-index:3;
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  z-index:3;
+  perspective:1000px;
+  pointer-events:none;
 }
 .door{
-    width:50%;
-    height:100%;
-    background:#111;
-    transition:transform 2s;
+  width:50%;
+  height:100%;
+  background:#111;
+  transition:transform 2s;
 }
-.left{
-    transform-origin:left;
-    border-right:1px solid #00ffc8;
-}
-.right{
-    transform-origin:right;
-    border-left:1px solid #00ffc8;
-}
-.open .left{
-    transform:rotateY(-120deg);
-}
-.open .right{
-    transform:rotateY(120deg);
+.left{transform-origin:left;border-right:1px solid #00ffc8;}
+.right{transform-origin:right;border-left:1px solid #00ffc8;}
+.open .left{transform:rotateY(-120deg);}
+.open .right{transform:rotateY(120deg);}
+
+/* TEXT */
+.room-text{
+  color:#ccc;
+  opacity:0;
+  transition:opacity 1.5s;
+  line-height:1.6;
 }
 
 /* BUTTONS */
 button{
-    position:absolute;
-    padding:10px 20px;
-    background:#00ffc8;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-    letter-spacing:1px;
-    z-index:5;
-    transition:0.3s;
+  position:absolute;
+  padding:10px 20px;
+  background:#00ffc8;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  letter-spacing:1px;
+  transition:0.3s;
 }
-button:hover{
-    background:#00ffa0;
-}
-#enterBtn{
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-}
-#nextBtn{
-    bottom:20px;
-    right:20px;
-}
-#backBtn{
-    bottom:20px;
-    left:20px;
-}
-
-/* SKILLS LIST */
-ul{
-    text-align:left;
-    color:#ccc;
-    line-height:1.6;
-    padding-left:20px;
-}
+button:hover{background:#00ffa0;}
+#enterBtn{top:50%;left:50%;transform:translate(-50%,-50%);}
+#nextBtn{bottom:20px;right:20px;}
+#backBtn{bottom:20px;left:20px;}
 </style>
 </head>
 <body>
@@ -131,41 +98,39 @@ ul{
 <h1>Soorya G</h1>
 <h3>Security Researcher</h3>
 
-<div class="scene">
+<div class="scene" id="scene">
 
-    <!-- ROOM 1: INTRO -->
-    <div class="room active" id="room1">
-
-        <!-- Text behind the door -->
-        <div class="room-inside" id="roomText1">
-            <p>
-            Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
-            I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
-            With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
-            </p>
-        </div>
-
-        <!-- Doors -->
-        <div class="door-layer" id="doors">
-            <div class="door left"></div>
-            <div class="door right"></div>
-        </div>
-
-        <button id="enterBtn">ENTER</button>
-
+  <!-- ROOM 1 -->
+  <div class="room" id="room1">
+    <div class="room-text" id="roomText1">
+      <p>
+      Certified Penetration Tester with a deep interest in ethical hacking, penetration testing, and bug hunting.
+      I enjoy exploring how systems work, finding vulnerabilities, and turning challenges into learning opportunities.
+      With a blend of technical skills and a constant eagerness to grow, I strive to make the digital world safer while evolving every day as a security professional.
+      </p>
     </div>
 
-    <!-- ROOM 2: SKILLS -->
-    <div class="room" id="room2">
-        <ul>
-            <li>Strong understanding of OWASP Top 10 (Web & API) vulnerabilities with hands-on security testing experience.</li>
-            <li>Proficient in web application security testing using Burp Suite, OWASP ZAP, and Postman for vulnerability identification and validation.</li>
-            <li>Hands-on experience with penetration testing and security tools including Nmap, Metasploit, Nikto, Hydra, SQLMap, Wfuzz, Wireshark, JWT Tool, and PyInstxtractor.</li>
-            <li>Skilled in traffic interception, request manipulation, and vulnerability analysis using tools like Burp Suite and OWASP ZAP.</li>
-            <li>Active bug hunter with practical experience in identifying, exploiting, and responsibly reporting security vulnerabilities.</li>
-        </ul>
-        <button id="backBtn">⬅ Back</button>
+    <div class="door-layer" id="doors">
+      <div class="door left"></div>
+      <div class="door right"></div>
     </div>
+
+    <button id="enterBtn">ENTER</button>
+  </div>
+
+  <!-- ROOM 2 -->
+  <div class="room" id="room2" style="transform: translateZ(1000px);">
+    <div class="room-text" id="roomText2">
+      <ul>
+        <li>Strong understanding of OWASP Top 10 (Web & API) vulnerabilities with hands-on security testing experience.</li>
+        <li>Proficient in web application security testing using Burp Suite, OWASP ZAP, and Postman for vulnerability identification and validation.</li>
+        <li>Hands-on experience with penetration testing and security tools including Nmap, Metasploit, Nikto, Hydra, SQLMap, Wfuzz, Wireshark, JWT Tool, and PyInstxtractor.</li>
+        <li>Skilled in traffic interception, request manipulation, and vulnerability analysis using tools like Burp Suite and OWASP ZAP.</li>
+        <li>Active bug hunter with practical experience in identifying, exploiting, and responsibly reporting security vulnerabilities.</li>
+      </ul>
+    </div>
+    <button id="backBtn">⬅ Back</button>
+  </div>
 
 </div>
 
@@ -175,41 +140,40 @@ ul{
 const btnEnter = document.getElementById("enterBtn");
 const doors = document.getElementById("doors");
 const roomText1 = document.getElementById("roomText1");
-
-const room1 = document.getElementById("room1");
-const room2 = document.getElementById("room2");
-
+const scene = document.getElementById("scene");
 const btnNext = document.getElementById("nextBtn");
 const btnBack = document.getElementById("backBtn");
+const roomText2 = document.getElementById("roomText2");
 
-// Hide next/back initially
 btnNext.style.display="none";
 btnBack.style.display="none";
 
-// ENTER button: open doors and show intro text
+// ENTER: open doors & show text
 btnEnter.onclick = function(){
-    doors.classList.add("open");
-    btnEnter.style.display="none";
-    setTimeout(()=>{
-        roomText1.style.opacity="1";
-        btnNext.style.display="block";
-    },1200);
-}
-
-// NEXT button: move to Room 2
-btnNext.onclick = function(){
-    room1.classList.remove("active");
-    room2.classList.add("active");
-    btnNext.style.display="none";
-    btnBack.style.display="block";
-}
-
-// BACK button: move back to Room 1
-btnBack.onclick = function(){
-    room2.classList.remove("active");
-    room1.classList.add("active");
-    btnBack.style.display="none";
+  doors.classList.add("open");
+  btnEnter.style.display="none";
+  setTimeout(()=>{
+    roomText1.style.opacity="1";
     btnNext.style.display="block";
+  },1200);
+}
+
+// NEXT ROOM: move camera forward
+btnNext.onclick = function(){
+  scene.style.transform = "translateZ(-1000px)";
+  btnNext.style.display="none";
+  btnBack.style.display="block";
+  setTimeout(()=>{
+    roomText2.style.opacity="1";
+  }, 1000);
+}
+
+// BACK ROOM: move camera back
+btnBack.onclick = function(){
+  scene.style.transform = "translateZ(0px)";
+  btnBack.style.display="none";
+  btnNext.style.display="block";
+  roomText2.style.opacity="0";
 }
 </script>
 
